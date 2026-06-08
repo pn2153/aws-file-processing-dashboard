@@ -1,0 +1,40 @@
+﻿@model List<AwsAssignmentDemo.Models.UploadedFile>
+
+<div class="text-center">
+    <h1 class="display-4">AWS File Processing Dashboard</h1>
+
+    <p>
+        Elastic Beanstalk → S3 → SQS → Lambda → CloudWatch → RDS
+    </p>
+
+    <hr />
+
+    <a class="btn btn-primary" href="/Upload">
+        Upload New File
+    </a>
+</div>
+
+<br />
+
+<h3>Recent Uploads</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>File Name</th>
+            <th>S3 Key</th>
+            <th>Upload Date (UTC)</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var file in Model)
+        {
+            <tr>
+                <td>@file.FileName</td>
+                <td>@file.S3Key</td>
+                <td>@file.UploadDate</td>
+            </tr>
+        }
+    </tbody>
+</table>
