@@ -45,15 +45,15 @@ jobs:
           ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 
           aws s3 cp deployment.zip \
-          s3://elasticbeanstalk-ap-south-1-$ACCOUNT_ID/deployment-${{ github.run_number }}.zip
+          s3://elasticbeanstalk-ap-south-1-$ACCOUNT_ID/deployment-${{ github.run_id }}.zip
 
           aws elasticbeanstalk create-application-version \
           --application-name app-dev-ebs-01 \
-          --version-label github-${{ github.run_number }} \
-          --source-bundle S3Bucket=elasticbeanstalk-ap-south-1-$ACCOUNT_ID,S3Key=deployment-${{ github.run_number }}.zip
+          --version-label github-${{ github.run_id }} \
+          --source-bundle S3Bucket=elasticbeanstalk-ap-south-1-$ACCOUNT_ID,S3Key=deployment-${{ github.run_id }}.zip
 
       - name: Deploy to Elastic Beanstalk
         run: |
           aws elasticbeanstalk update-environment \
           --environment-name App-dev-ebs-01-env \
-          --version-label github-${{ github.run_number }}
+          --version-label github-${{ github.run_id }}
